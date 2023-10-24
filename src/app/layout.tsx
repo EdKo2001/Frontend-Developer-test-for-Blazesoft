@@ -4,6 +4,11 @@ import { Providers } from "@/lib/providers";
 
 import { ChakraProvider } from "@chakra-ui/react";
 
+import {
+  //@ts-ignore
+  Container,
+} from "@chakra-ui/react";
+
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
@@ -20,7 +25,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <ChakraProvider>{children}</ChakraProvider>
+          <ChakraProvider>
+            <Container maxW="3xl">{children}</Container>
+          </ChakraProvider>
         </Providers>
       </body>
     </html>

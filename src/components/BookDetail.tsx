@@ -3,11 +3,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-  Box,
   Input,
   Textarea,
   Button,
-  Heading,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -51,12 +49,9 @@ const BookDetail: React.FC<BookDetailProps> = ({ book, onClose }) => {
     <Modal isOpen={true} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Edit Book</ModalHeader>
-        <ModalBody>
-          <Box>
-            <Heading as="h2" mb={4}>
-              Edit Book
-            </Heading>
+        <form onSubmit={handleUpdate}>
+          <ModalHeader>Edit Book</ModalHeader>
+          <ModalBody>
             <Input
               type="text"
               name="name"
@@ -92,14 +87,14 @@ const BookDetail: React.FC<BookDetailProps> = ({ book, onClose }) => {
               placeholder="Description"
               required
             />
-          </Box>
-        </ModalBody>
-        <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={handleUpdate}>
-            Update
-          </Button>
-          <Button onClick={onClose}>Cancel</Button>
-        </ModalFooter>
+          </ModalBody>
+          <ModalFooter>
+            <Button type="submit" colorScheme="blue" mr={3}>
+              Update
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </form>
       </ModalContent>
     </Modal>
   );
