@@ -69,12 +69,27 @@ const BookList: React.FC = () => {
             onClick={() => handleEdit(book.id)}
             cursor="pointer"
             p={4}
+            display="flex"
+            flexDirection="column"
+            alignItems="flex-start"
+            justifyContent="space-between"
             borderWidth="1px"
             borderRadius="md"
             borderColor="gray.200"
           >
-            <Box fontWeight="semibold">Title: {book.name}</Box>
             <Box>
+              <Box>
+                <Box as="span" fontWeight="semibold">
+                  Title:
+                </Box>{" "}
+                {book.name}
+              </Box>
+              <Box>
+                <Box as="span" fontWeight="semibold">
+                  Price:
+                </Box>{" "}
+                ${book.price.toFixed(2)}
+              </Box>
               <Box>
                 <Box as="span" fontWeight="semibold">
                   Category:
@@ -83,9 +98,9 @@ const BookList: React.FC = () => {
               </Box>
               <Box>
                 <Box as="span" fontWeight="semibold">
-                  Price:
+                  Description:
                 </Box>{" "}
-                ${book.price.toFixed(2)}
+                {book.description}
               </Box>
             </Box>
             <Button
@@ -96,6 +111,7 @@ const BookList: React.FC = () => {
                 handleDelete(book.id);
               }}
               mt={2}
+              width="fit-content"
             >
               Delete
             </Button>
