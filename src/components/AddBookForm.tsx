@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { addBook } from "@/lib/redux";
 
-import styles from "@/styles/AddBookForm.module.scss";
+import { Box, Input, Textarea, Button, Heading } from "@chakra-ui/react";
 
 const AddBookForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -39,43 +39,51 @@ const AddBookForm: React.FC = () => {
   };
 
   return (
-    <div className={styles["add-book-form"]}>
-      <h2>Add Book</h2>
+    <Box p={4}>
+      <Heading as="h2" mb={4}>
+        Add Book
+      </Heading>
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
           type="text"
           name="name"
           placeholder="Book Name"
           value={book.name}
           onChange={handleInputChange}
+          mb={2}
           required
         />
-        <input
+        <Input
           type="number"
           name="price"
           placeholder="Price"
           value={book.price}
           onChange={handleInputChange}
+          mb={2}
           required
         />
-        <input
+        <Input
           type="text"
           name="category"
           placeholder="Category"
           value={book.category}
           onChange={handleInputChange}
+          mb={2}
           required
         />
-        <textarea
+        <Textarea
           name="description"
           placeholder="Description"
           value={book.description}
           onChange={handleInputChange}
+          mb={4}
           required
         />
-        <button type="submit">Add Book</button>
+        <Button type="submit" colorScheme="teal">
+          Add Book
+        </Button>
       </form>
-    </div>
+    </Box>
   );
 };
 

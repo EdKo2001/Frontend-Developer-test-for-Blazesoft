@@ -1,32 +1,65 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { selectBooks, deleteBook } from "@/lib/redux";
-
-import styles from "@/styles/BookList.module.scss";
+import { Box, Button, Heading, List, ListItem } from "@chakra-ui/react";
+import { selectBooks, deleteBook, Book } from "@/lib/redux";
+import BookDetail from "@/components/BookDetail";
 
 const BookList: React.FC = () => {
-  const dispatch = useDispatch();
   const books = useSelector(selectBooks);
+  const dispatch = useDispatch();
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDelete = (id: number) => {
     dispatch(deleteBook(id));
   };
 
+  const handleEdit = (id: number) => {
+    const book = books.find((book) => book.id === id);
+    if (book) {
+      setSelectedBook(book);
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleModalClose = () => {
+    setSelectedBook(null);
+    setIsModalOpen(false);
+  };
+
   return (
-    <div className={styles["book-list"]}>
-      <h1>Bookstore</h1>
-      <ul>
+    <Box className="book-list" p={4}>
+      <Heading as="h2" mb={4}>
+        Book List
+      </Heading>
+      <List>
         {books.map((book) => (
-          <li key={book.id}>
+          <ListItem key={book.id} display="flex" alignItems="center" mb={2}>
+            <Button
+              colorScheme="red"
+              onClick={() => handleDelete(book.id)}
+              mr={2}
+            >
+              Delete
+            </Button>
             {book.name} - {book.price} - {book.category}
-            <button onClick={() => handleDelete(book.id)}>Delete</button>
-          </li>
+            <Button
+              colorScheme="teal"
+              ml="auto"
+              onClick={() => handleEdit(book.id)}
+            >
+              Edit
+            </Button>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+
+      {isModalOpen && selectedBook && (
+        <BookDetail book={selectedBook} onClose={handleModalClose} />
+      )}
+    </Box>
   );
 };
 

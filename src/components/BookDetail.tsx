@@ -2,10 +2,20 @@
 
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-
+import {
+  Box,
+  Input,
+  Textarea,
+  Button,
+  Heading,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "@chakra-ui/react";
 import { updateBook } from "@/lib/redux";
-
-import styles from "@/styles/BookDetail.module.scss";
 
 interface BookDetailProps {
   book: {
@@ -38,44 +48,60 @@ const BookDetail: React.FC<BookDetailProps> = ({ book, onClose }) => {
   };
 
   return (
-    <div className={styles["book-detail-form"]}>
-      <h2>Edit Book</h2>
-      <form>
-        <input
-          type="text"
-          name="name"
-          value={updatedBook.name}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="price"
-          value={updatedBook.price}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="category"
-          value={updatedBook.category}
-          onChange={handleInputChange}
-          required
-        />
-        <textarea
-          name="description"
-          value={updatedBook.description}
-          onChange={handleInputChange}
-          required
-        />
-        <button type="button" onClick={handleUpdate}>
-          Update
-        </button>
-        <button type="button" onClick={onClose}>
-          Cancel
-        </button>
-      </form>
-    </div>
+    <Modal isOpen={true} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Edit Book</ModalHeader>
+        <ModalBody>
+          <Box>
+            <Heading as="h2" mb={4}>
+              Edit Book
+            </Heading>
+            <Input
+              type="text"
+              name="name"
+              value={updatedBook.name}
+              onChange={handleInputChange}
+              mb={2}
+              placeholder="Book Name"
+              required
+            />
+            <Input
+              type="number"
+              name="price"
+              value={updatedBook.price}
+              onChange={handleInputChange}
+              mb={2}
+              placeholder="Price"
+              required
+            />
+            <Input
+              type="text"
+              name="category"
+              value={updatedBook.category}
+              onChange={handleInputChange}
+              mb={2}
+              placeholder="Category"
+              required
+            />
+            <Textarea
+              name="description"
+              value={updatedBook.description}
+              onChange={handleInputChange}
+              mb={4}
+              placeholder="Description"
+              required
+            />
+          </Box>
+        </ModalBody>
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={handleUpdate}>
+            Update
+          </Button>
+          <Button onClick={onClose}>Cancel</Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 };
 
