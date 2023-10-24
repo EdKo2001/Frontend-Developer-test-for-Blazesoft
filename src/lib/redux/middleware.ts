@@ -1,7 +1,10 @@
+import { Middleware } from "redux";
 import { createLogger } from "redux-logger";
 
-const middleware = [
-  createLogger({
+let middleware: Middleware[] = [];
+
+if (process.env.NODE_ENV === "development") {
+  const loggerOptions = {
     duration: true,
     timestamp: false,
     collapsed: true,
@@ -13,7 +16,10 @@ const middleware = [
       error: () => "#ff0005",
     },
     predicate: () => typeof window !== "undefined",
-  }),
-];
+  };
+
+  const loggerMiddleware: Middleware = createLogger(loggerOptions);
+  middleware = [...middleware, loggerMiddleware];
+}
 
 export { middleware };
