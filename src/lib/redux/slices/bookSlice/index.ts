@@ -8,7 +8,7 @@ export interface Book {
   description: string;
 }
 
-export interface BookState {
+interface BookState {
   books: Book[];
 }
 

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { addBook } from "@/lib/redux";
+import { Book, addBook } from "@/lib/redux";
 
 import {
   Input,
@@ -25,7 +25,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ onClose }) => {
   const dispatch = useDispatch();
   const [book, setBook] = useState({
     name: "",
-    price: 0,
+    price: "",
     category: "",
     description: "",
   });
@@ -42,11 +42,15 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ onClose }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(addBook({ ...book, id: Date.now() }));
+    const priceAsNumber = parseFloat(book.price); // Convert price to number
+    if (!isNaN(priceAsNumber) && priceAsNumber >= 0) {
+      // Check if price is a valid number
+      dispatch(addBook({ ...book, id: Date.now(), price: priceAsNumber }));
+    }
     // Reset form fields
     setBook({
       name: "",
-      price: 0,
+      price: "",
       category: "",
       description: "",
     });

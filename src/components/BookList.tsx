@@ -73,9 +73,7 @@ const BookList: React.FC = () => {
             borderRadius="md"
             borderColor="gray.200"
           >
-            <Box fontWeight="semibold" mb={2}>
-              Title: {book.name}
-            </Box>
+            <Box fontWeight="semibold">Title: {book.name}</Box>
             <Box>
               <Box>
                 <Box as="span" fontWeight="semibold">
